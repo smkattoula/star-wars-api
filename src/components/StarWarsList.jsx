@@ -1,23 +1,15 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect, useContext } from "react";
 import StarWars from "./StarWars";
 import { Row, Col, Spinner } from "react-bootstrap";
-import axios from "axios";
+import StarWarsContext from "../context/StarWarsContext";
 
 const StarWarsList = () => {
-  const [people, setPeople] = useState([]);
-  const [loading, setLoading] = useState(true);
-
-  const fetchPeople = async () => {
-    const response = await axios.get("https://swapi.dev/api/people/");
-
-    const data = await response.data;
-    setPeople(data);
-    setLoading(false);
-  };
+  const starWarsContext = useContext(StarWarsContext);
+  const { people, loading, fetchPeople } = starWarsContext;
 
   useEffect(() => {
     fetchPeople();
-  }, []);
+  }, [fetchPeople]);
 
   console.log(people);
 
